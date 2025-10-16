@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Business Card</title>
+</head>
+<body>
+    <h2>Upload Business Card</h2>
+    <input type="file" id="fileInput" />
+    <button onclick="uploadFile()">Upload</button>
+
+    <pre id="response"></pre>
+
+    <script>
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) return alert("Select a file");
+
+            const formData = new FormData();
+            formData.append("file", fileInput.files[0]);
+
+            const response = await fetch("http://127.0.0.1:5000/upload-card", {
+                method: "POST",
+                body: formData
+            });
+
+            const data = await response.json();
+            document.getElementById('response').innerText = JSON.stringify(data, null, 2);
+        }
+    </script>
+</body>
+</html>
