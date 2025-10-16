@@ -180,7 +180,7 @@ def process_pending_emails():
 def mark_email_sent(contact):
     try:
         contact["emailSent"] = "Yes"
-        requests.put(WEB_APP_URL, json=contact)
+        requests.put(WEB_APP_URL, json=contact)  # <-- This is a PUT request ✅
     except Exception as e:
         print(f"Failed to mark email as sent: {e}")
 
