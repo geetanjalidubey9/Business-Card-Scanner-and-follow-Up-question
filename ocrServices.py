@@ -176,13 +176,15 @@ def process_pending_emails():
             mark_email_sent(contact)
         else:
             print(f"Email not sent yet for {contact.get('Name')} (less than 24 hours)")
-
+            
 def mark_email_sent(contact):
     try:
         contact["emailSent"] = "Yes"
-        requests.put(WEB_APP_URL, json=contact)  # <-- This is a PUT request ✅
+        response = requests.put(WEB_APP_URL, json=contact)
+        print("PUT response:", response.text)
     except Exception as e:
         print(f"Failed to mark email as sent: {e}")
+
 
 def start_email_scheduler():
     scheduler = BackgroundScheduler()
